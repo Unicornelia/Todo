@@ -1,0 +1,15 @@
+{
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ],
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "arrowParens": "always",
+  "printWidth": 100
+}
