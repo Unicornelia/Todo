@@ -8,9 +8,9 @@ interface MessageProps {
 const Message: FC<MessageProps> = ({ name, message }) => {
   return (
     <div>
-      <h1>
+      <h5>
         {message} from {name}
-      </h1>
+      </h5>
     </div>
   );
 };
