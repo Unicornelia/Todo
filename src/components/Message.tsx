@@ -1,15 +1,16 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
+import UserContext from '../context/UserContext.tsx';
 
-interface MessageProps {
-  name: string;
-  message: string;
-}
+const Message: FC = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error('User context must be used within user provider');
+  }
 
-const Message: FC<MessageProps> = ({ name, message }) => {
   return (
     <div>
       <h5>
-        {message} from {name}
+        {context?.message} from {context?.userName}
       </h5>
     </div>
   );

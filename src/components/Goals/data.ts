@@ -1,4 +1,4 @@
-import { Goal } from '../../types';
+import { Goal } from './types.ts';
 
 export const initialGoals: Array<Goal> = [
   { id: 1, text: 'Finish Course' },
