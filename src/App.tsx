@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import { Goal } from './components/Goals/types.ts';
-import { initialGoals } from './components/Goals/data.ts';
 import NewGoal from './components/Goals/NewGoal.tsx';
 import GoalList from './components/Goals/GoalList.tsx';
 import './App.css';
+import DeleteGoals from './components/Goals/DeleteGoals.tsx';
 
 const Container: IStyledComponentBase<'web'> = styled.div`
   display: flex;
@@ -23,8 +23,10 @@ const Container: IStyledComponentBase<'web'> = styled.div`
 `;
 
 type GoalHandlerFn = (goal: Goal) => void;
+type RemoveGoalsHandlerFn = () => void;
 
 const App: FC = () => {
+  const initialGoals: Array<Goal> = [];
   const [goals, setGoals] = useState(initialGoals);
 
   useEffect(() => {
@@ -40,6 +42,11 @@ const App: FC = () => {
     });
   };
 
+  const removeGoalsHandler: RemoveGoalsHandlerFn = (): void => {
+    setGoals(initialGoals);
+    localStorage.removeItem('goals');
+  };
+
   let date = new Date().toDateString();
   return (
     <ErrorBoundary fallback={<p>Something went wrong</p>}>
@@ -47,6 +54,7 @@ const App: FC = () => {
         <h2>Todo for {date}</h2>
         <NewGoal onAddGoal={addNewGoalHandler} />
         <GoalList goals={goals} />
+        {goals.length > 0 && <DeleteGoals onDeleteGoals={removeGoalsHandler} />}
       </Container>
     </ErrorBoundary>
   );

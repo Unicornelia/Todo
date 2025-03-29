@@ -11,29 +11,30 @@ type ButtonProps = {
 };
 
 const Button = styled(motion.button)`
-    background: linear-gradient(135deg, aquamarine, #10808a);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-    align-self: center;
-    width: fit-content;
-    font-weight: bold;
-    margin-top: 1rem;
+  background: linear-gradient(135deg, aquamarine, #10808a);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: center;
+  width: fit-content;
+  font-weight: bold;
+  margin-top: 1rem;
 
-    &:hover {
-        background: #10808a;
-    }
+  &:hover {
+    background: #10808a;
+  }
 `;
 
-const AnimatedButton: FC<ButtonProps> = ({ children, type, value }) => {
+const AnimatedButton: FC<ButtonProps> = ({ children, type, value, onClick }) => {
   return (
     <Button
       type={type}
       value={value}
+      onClick={onClick}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >

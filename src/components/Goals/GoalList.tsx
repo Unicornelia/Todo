@@ -14,7 +14,7 @@ const StyledUnorderedList = styled.ul`
     margin: 1rem 0;
     border: 1px solid aquamarine;
     border-radius: 6px;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 `;
 
