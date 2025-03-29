@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import AnimatedButton from './AnimatedButton';
+import { Goal } from './types.ts';
 
 const StyledForm = styled.form`
   text-align: center;
@@ -15,7 +16,11 @@ const StyledForm = styled.form`
   }
 `;
 
-type onAddGoalType = { onAddGoal: (newGoal: { id: number; text: string }) => void };
+const StyledError = styled.div`
+  color: deeppink;
+`;
+
+type onAddGoalType = { onAddGoal: (newGoal: Goal) => void };
 
 const NewGoal = ({ onAddGoal }: onAddGoalType) => {
   const [inputText, setInputText] = useState<string>('');
@@ -24,7 +29,6 @@ const NewGoal = ({ onAddGoal }: onAddGoalType) => {
   const addGoalHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText.trim() !== '') {
-      console.log(inputText);
       const newGoal = {
         id: Math.random(),
         text: inputText,
@@ -43,9 +47,9 @@ const NewGoal = ({ onAddGoal }: onAddGoalType) => {
   return (
     <StyledForm className="new-goal" onSubmit={addGoalHandler}>
       {error && (
-        <div style={{ color: 'red' }}>
+        <StyledError>
           <p>{error}</p>
-        </div>
+        </StyledError>
       )}
       <input type="text" onChange={textChangeHandler} value={inputText} />
       <AnimatedButton type="submit" value="Add Goal">

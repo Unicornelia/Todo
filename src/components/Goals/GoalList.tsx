@@ -1,4 +1,3 @@
-import React from 'react';
 import { Goal } from './types.ts';
 import styled from 'styled-components';
 

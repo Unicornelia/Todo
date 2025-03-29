@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { IStyledComponentBase } from 'styled-components/dist/types';
@@ -25,10 +25,19 @@ const Container: IStyledComponentBase<'web'> = styled.div`
 type GoalHandlerFn = (goal: Goal) => void;
 
 const App: FC = () => {
-  const [courseGoals, setCourseGoals] = useState(initialGoals);
+  const [goals, setGoals] = useState(initialGoals);
 
-  const addNewGoalHandler: GoalHandlerFn = (goal: Goal): void => {
-    setCourseGoals((prevCourseGoals) => prevCourseGoals.concat(goal));
+  useEffect(() => {
+    const savedGoals = localStorage.getItem('goals');
+    savedGoals && setGoals(JSON.parse(savedGoals));
+  }, []);
+
+  const addNewGoalHandler: GoalHandlerFn = (newGoal: Goal): void => {
+    setGoals((prevGoals) => {
+      const updatedGoals = [...prevGoals, newGoal];
+      localStorage.setItem('goals', JSON.stringify(updatedGoals));
+      return updatedGoals;
+    });
   };
 
   let date = new Date().toDateString();
@@ -37,7 +46,7 @@ const App: FC = () => {
       <Container>
         <h2>Todo for {date}</h2>
         <NewGoal onAddGoal={addNewGoalHandler} />
-        <GoalList goals={courseGoals} />
+        <GoalList goals={goals} />
       </Container>
     </ErrorBoundary>
   );
