@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import AnimatedButton from './AnimatedButton';
 
@@ -19,24 +19,34 @@ type onAddGoalType = { onAddGoal: (newGoal: { id: number; text: string }) => voi
 
 const NewGoal = ({ onAddGoal }: onAddGoalType) => {
   const [inputText, setInputText] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
-  const addGoalHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const addGoalHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const newGoal = {
-      id: Math.random(),
-      text: inputText,
-    };
-    setInputText('');
-    onAddGoal(newGoal);
+    if (inputText.trim() !== '') {
+      console.log(inputText);
+      const newGoal = {
+        id: Math.random(),
+        text: inputText,
+      };
+      setInputText('');
+      onAddGoal(newGoal);
+    } else {
+      setError('Input cannot be empty');
+    }
   };
 
-  const textChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const textChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
 
   return (
     <StyledForm className="new-goal" onSubmit={addGoalHandler}>
+      {error && (
+        <div style={{ color: 'red' }}>
+          <p>{error}</p>
+        </div>
+      )}
       <input type="text" onChange={textChangeHandler} value={inputText} />
       <AnimatedButton type="submit" value="Add Goal">
         Add Goal
