@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# practice files etc
+src/AdvancedTypes
+src/components/CheckBox.tsx
+src/components/CounterButton.tsx
+src/components/StarRating
+src/variousFns.ts
