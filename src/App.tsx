@@ -4,6 +4,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import './App.css';
 import Goals from './components/Goals';
+import Header from './components/Header.tsx';
+import FallBackError from './components/FallBackError.tsx';
 
 const Container: IStyledComponentBase<'web'> = styled.div`
   display: flex;
@@ -19,13 +21,11 @@ const Container: IStyledComponentBase<'web'> = styled.div`
   color: white;
 `;
 
-const App: FC = () => {
-  const date = new Date().toDateString();
-
+const App: FC<Element> = () => {
   return (
-    <ErrorBoundary fallback={<p>Something went wrong</p>}>
+    <ErrorBoundary fallback={<FallBackError />}>
       <Container>
-        <h2>Todo for {date}</h2>
+        <Header />
         <Goals />
       </Container>
     </ErrorBoundary>
