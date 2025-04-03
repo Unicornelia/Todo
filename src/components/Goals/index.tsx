@@ -8,8 +8,7 @@ type GoalHandlerFn = (goal: Goal) => void;
 type RemoveGoalsHandlerFn = () => void;
 
 const Goals: FC = () => {
-  const initialGoals: Array<Goal> = [];
-  const [goals, setGoals] = useState<Array<Goal>>(initialGoals);
+  const [goals, setGoals] = useState<Array<Goal>>([]);
 
   useEffect(() => {
     const savedGoals = localStorage.getItem('goals');
@@ -25,7 +24,7 @@ const Goals: FC = () => {
   };
 
   const removeGoalsHandler: RemoveGoalsHandlerFn = (): void => {
-    setGoals(initialGoals);
+    setGoals([]);
     localStorage.removeItem('goals');
   };
 
