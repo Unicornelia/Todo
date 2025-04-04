@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Person } from '../data/exampleData.ts';
+import { Person } from '../../../data/exampleData.ts';
 
 type UserInfoProps = {
   user?: Person | null | undefined;

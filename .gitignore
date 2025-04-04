@@ -25,7 +25,3 @@ dist-ssr
 
 # practice files etc
 src/AdvancedTypes
-src/components/Misc/CheckBox.tsx
-src/components/Misc/CounterButton.tsx
-src/components/StarRating
-src/variousFns.ts

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Product } from '../data/exampleData.ts';
+import { Product } from '../../../data/exampleData.ts';
 
 interface LargeProductListItemProps {
   product: Product;
