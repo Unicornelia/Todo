@@ -4,11 +4,6 @@ import './App.css';
 import FallBackError from './components/FallBackError.tsx';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import styled from 'styled-components';
-import { UserInfo } from './people/UserInfo.tsx';
-import { DataSource } from './components/DataSource.tsx';
-import axios from 'axios';
-import { Person } from './data/exampleData.ts';
-import { Text } from './components/Text.tsx';
 
 const Container: IStyledComponentBase<'web'> = styled.div`
   display: flex;
@@ -25,25 +20,9 @@ const Container: IStyledComponentBase<'web'> = styled.div`
 `;
 
 const App: FC<Element> = () => {
-  const getServerData = (url: string) => async (): Promise<Person> => {
-    const response = await axios.get(url);
-    return response.data;
-  };
-
-  const getLocalStorageData = (key?: string) => () => {
-    if (key) return localStorage.getItem(key);
-  };
-
   return (
     <ErrorBoundary fallback={<FallBackError />}>
-      <Container>
-        <DataSource getDataFn={getServerData('/api/users/2')} resourceName="user">
-          <UserInfo />
-        </DataSource>
-        <DataSource getDataFn={getLocalStorageData('message')} resourceName="message">
-          <Text />
-        </DataSource>
-      </Container>
+      <Container></Container>
     </ErrorBoundary>
   );
 };
