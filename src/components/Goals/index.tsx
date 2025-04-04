@@ -32,7 +32,7 @@ const Goals: FC = () => {
     <main>
       <NewGoal onAddGoal={addNewGoalHandler} />
       <GoalList goals={goals} />
-      {goals.length > 0 && <DeleteGoals onDeleteGoals={removeGoalsHandler} />}
+      {goals.length > 0 ? <DeleteGoals onDeleteGoals={removeGoalsHandler} /> : null}
     </main>
   );
 };

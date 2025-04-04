@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
-    "lib": ["ES2023"],
     "module": "ESNext",
+    "lib": ["ES2023"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
+    "allowJs": true,  // Ensures JS files can be imported
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",

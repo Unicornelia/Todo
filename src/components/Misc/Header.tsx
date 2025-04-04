@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import todos from '../assets/todos.png';
+import todos from '../../assets/todos.png';
 
 const Header: FC = () => {
   const date = new Date().toDateString();

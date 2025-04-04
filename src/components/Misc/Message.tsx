@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react';
-import UserContext from '../context/UserContext.tsx';
+import UserContext from '../../context/UserContext.tsx';
 
 const Message: FC = () => {
   const context = useContext(UserContext);
