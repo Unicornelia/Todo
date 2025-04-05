@@ -1,10 +1,14 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import './App.css';
 import FallBackError from './components/FallBackError.tsx';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import styled from 'styled-components';
-import { ControlledModal } from './components/Modal/ControlledModal.tsx';
+import { UncontrolledOnboardingFlow } from './components/OnboardingFlow/UncontrolledOnboardingFlow.tsx';
+import { Person } from './data/exampleData.ts';
+import { NextButton } from './components/OnboardingFlow/NextButton.tsx';
+
+type goToNextFn = { goToNext?: (p: Partial<Person>) => void };
 
 const Container: IStyledComponentBase<'web'> = styled.div`
   display: flex;
@@ -20,17 +24,53 @@ const Container: IStyledComponentBase<'web'> = styled.div`
   color: chartreuse;
 `;
 
-const App: FC<Element> = () => {
-  const [shouldShowModal, setShouldShowModal] = useState(false);
+const StepOne = ({ goToNext }: goToNextFn) => {
+  return (
+    goToNext && (
+      <>
+        <NextButton onNextClick={() => goToNext({ name: 'Jane Doe' })} />
+        <h1>Step 1</h1>
+      </>
+    )
+  );
+};
 
-  let toggleModal = () => setShouldShowModal((prevState) => !prevState);
+const StepTwo = ({ goToNext }: goToNextFn) => {
+  return (
+    goToNext && (
+      <>
+        <NextButton onNextClick={() => goToNext({ age: 100 })} />
+        <h1>Step 2</h1>
+      </>
+    )
+  );
+};
+
+const StepThree = ({ goToNext }: goToNextFn) => {
+  return (
+    goToNext && (
+      <>
+        <NextButton onNextClick={() => goToNext({ hairColor: 'brown' })} />
+        <h1>Step 3</h1>
+      </>
+    )
+  );
+};
+
+const App: FC<Element> = () => {
   return (
     <ErrorBoundary fallback={<FallBackError />}>
       <Container>
-        <ControlledModal shouldShow={shouldShowModal} onToggle={toggleModal}>
-          <h1>Hi there</h1>
-        </ControlledModal>
-        <button onClick={toggleModal}>{shouldShowModal ? 'Hide' : 'Reveal'}</button>
+        <UncontrolledOnboardingFlow
+          onFinish={(data) => {
+            console.log(data);
+            alert('Onboarding complete');
+          }}
+        >
+          <StepOne />
+          <StepTwo />
+          <StepThree />
+        </UncontrolledOnboardingFlow>
       </Container>
     </ErrorBoundary>
   );
