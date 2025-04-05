@@ -3,7 +3,8 @@ import './App.css';
 import FallBackError from './components/FallBackError.tsx';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import styled from 'styled-components';
-import { UserInfo } from './components/Misc/people/UserInfo.tsx';
+import { UserInfo } from './components/User/UserInfo.tsx';
+import { ProductInfo } from './components/Product/ProductInfo.tsx';
 
 const Container: IStyledComponentBase<'web'> = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ function App() {
         <UserInfo userId={1} />
         <UserInfo userId={2} />
         <UserInfo userId={3} />
+        <ProductInfo id={3} />
       </Container>
     </ErrorBoundary>
   );

@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, ReactNode, ReactElement } from 'react';
 import axios from 'axios';
-import { Person } from '../../../data/exampleData.ts';
+import { Person } from '../../data/exampleData.ts';
 
 type UserLoaderProps = {
   children: ReactNode;
