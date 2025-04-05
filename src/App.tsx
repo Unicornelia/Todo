@@ -1,10 +1,8 @@
-import { FC, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import './App.css';
 import FallBackError from './components/FallBackError.tsx';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import styled from 'styled-components';
-import { withPropsLogging } from './components/HOC/withPropsLogging.tsx';
 import { UserInfo } from './components/Misc/people/UserInfo.tsx';
 
 const Container: IStyledComponentBase<'web'> = styled.div`
@@ -21,20 +19,16 @@ const Container: IStyledComponentBase<'web'> = styled.div`
   color: chartreuse;
 `;
 
-const WrappedUserInfo = withPropsLogging(UserInfo);
-
-const App: FC<Element> = () => {
-  const wrappedRef = useRef(null);
+function App() {
   return (
     <ErrorBoundary fallback={<FallBackError />}>
       <Container>
-        <WrappedUserInfo
-          user={{ id: 1, name: 'K', age: 10, hairColor: 'red', hobbies: [] }}
-          ref={wrappedRef}
-        />
+        <UserInfo userId={1} />
+        <UserInfo userId={2} />
+        <UserInfo userId={3} />
       </Container>
     </ErrorBoundary>
   );
-};
+}
 
 export default App;

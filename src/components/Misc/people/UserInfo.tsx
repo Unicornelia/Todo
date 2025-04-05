@@ -1,14 +1,11 @@
-import { FC } from 'react';
-import { Person } from '../../../data/exampleData.ts';
+import { useUser } from '../../hooks/useUser.tsx';
 
-type UserInfoProps = {
-  user?: Person | null | undefined;
-};
-
-export const UserInfo: FC<UserInfoProps> = ({ user }) => {
-  const { name, age, hairColor, hobbies } = user ?? {};
+export const UserInfo = ({ userId }: { userId: number }) => {
+  const user = useUser(userId);
 
   if (!user) return <p>Loading...</p>;
+
+  const { name, age, hairColor, hobbies } = user;
 
   return (
     <>
