@@ -1,14 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import './App.css';
 import FallBackError from './components/FallBackError.tsx';
 import { IStyledComponentBase } from 'styled-components/dist/types';
 import styled from 'styled-components';
-import { Person } from './data/exampleData.ts';
-import { NextButton } from './components/OnboardingFlow/NextButton.tsx';
-import { ControlledOnboardingFlow } from './components/OnboardingFlow/ControlledOnboardingFlow.tsx';
-
-type goToNextFn = { goToNext?: (p: Partial<Person>) => void };
+import { withPropsLogging } from './components/HOC/withPropsLogging.tsx';
+import { UserInfo } from './components/Misc/people/UserInfo.tsx';
 
 const Container: IStyledComponentBase<'web'> = styled.div`
   display: flex;
@@ -24,63 +21,17 @@ const Container: IStyledComponentBase<'web'> = styled.div`
   color: chartreuse;
 `;
 
-const StepOne = ({ goToNext }: goToNextFn) => {
-  return (
-    goToNext && (
-      <>
-        <NextButton onNextClick={() => goToNext({ name: 'Jane Doe' })} />
-        <h1>Step 1</h1>
-      </>
-    )
-  );
-};
-
-const StepTwo = ({ goToNext }: goToNextFn) => {
-  return (
-    goToNext && (
-      <>
-        <NextButton onNextClick={() => goToNext({ age: 100 })} />
-        <h1>Step 2</h1>
-      </>
-    )
-  );
-};
-
-const StepThree = ({ goToNext }: goToNextFn) => {
-  return (
-    goToNext && (
-      <>
-        <NextButton onNextClick={() => goToNext({ hairColor: 'brown' })} />
-        <h1>Step 3</h1>
-      </>
-    )
-  );
-};
+const WrappedUserInfo = withPropsLogging(UserInfo);
 
 const App: FC<Element> = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [onboardingData, setOnboardingData] = useState({});
-
-  const onNext = (stepData: Partial<Person>) => {
-    setOnboardingData({ ...onboardingData, ...stepData });
-    setCurrentIndex((prevState) => prevState + 1);
-  };
-
+  const wrappedRef = useRef(null);
   return (
     <ErrorBoundary fallback={<FallBackError />}>
       <Container>
-        <ControlledOnboardingFlow
-          onFinish={(data) => {
-            console.log(data);
-            alert('Onboarding complete');
-          }}
-          currentIndex={currentIndex}
-          onNext={onNext}
-        >
-          <StepOne />
-          <StepTwo />
-          <StepThree />
-        </ControlledOnboardingFlow>
+        <WrappedUserInfo
+          user={{ id: 1, name: 'K', age: 10, hairColor: 'red', hobbies: [] }}
+          ref={wrappedRef}
+        />
       </Container>
     </ErrorBoundary>
   );
